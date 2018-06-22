@@ -10,7 +10,7 @@ def dataframe_to_str(dataframe):
     result = strings.general_strings['found_upon_request'] + ' ' + column_to_str(columns[0], 1) + ': ' + strings.general_strings['in_total'] + str(len(dataframe.index)) + '\n'
     for index, row in dataframe.iterrows():
         for column in columns:
-            result = result + column_to_str(column, 0) + ': ' + row[column] + '/n'
+            result = result + column_to_str(column, 0) + ': ' + check_none(row[column]) + '/n'
         result = result + '/n'
     return result
         
@@ -20,3 +20,8 @@ def column_to_str(column, index=0):
     else:
         result = column
     return result
+
+def check_none(name):
+    if name is None:
+        return ''
+    else: return name
