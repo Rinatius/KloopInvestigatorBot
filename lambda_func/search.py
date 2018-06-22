@@ -38,6 +38,7 @@ def call_specific_search(query, response, db_connection):
         dataframe = module.search(db_connection, query, **response["result"]["parameters"])
         result = {"text" : present.transform(dataframe)}
     except AttributeError:
+
         result = {"text" : "Просим прощения, эта функция пока не доступна."}
 
     return result
