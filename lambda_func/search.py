@@ -38,6 +38,5 @@ def call_specific_search(query, response, db_connection):
         result = snippets.df_to_dict(dataframe)
     except AttributeError:
         result = {"Sorry" : "Эта функция пока не доступна"}
-
     return result
     
