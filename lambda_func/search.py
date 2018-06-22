@@ -7,6 +7,7 @@ import queries
 from queries import *
 import snippets
 import connection
+import present
 
 def literal_search(query):
     
@@ -32,12 +33,13 @@ def complex_search(query):
     return result
 
 def call_specific_search(query, response, db_connection):
-    #try:
+    try:
         module = getattr(queries, response["result"]["metadata"]["intentName"])
         dataframe = module.search(db_connection, query, **response["result"]["parameters"])
-        result = snippets.df_to_dict(dataframe)
-    #except AttributeError:
-        result = {"Sorry" : "Эта функция пока не доступна"}
+        result = {"text" : present.transform(dataframe)}
+    except AttributeError:
+        
+        result = {"text" : "Просим прощения, эта функция пока не доступна."}
 
-    #return result
+    return result
     
