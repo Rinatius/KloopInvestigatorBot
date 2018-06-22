@@ -1,3 +1,6 @@
+#Script with access data
+set_env_variables.bat
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
