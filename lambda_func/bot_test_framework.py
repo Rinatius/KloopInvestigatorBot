@@ -1,13 +1,13 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 import lambda_function
 
 
-# In[5]:
+# In[2]:
 
 
 context = None
@@ -70,7 +70,7 @@ event = {
 }
 
 
-# In[6]:
+# In[3]:
 
 
 print(lambda_function.lambda_handler(event, context))
