@@ -1,0 +1,3 @@
+REQUEST_BODY = "body"
+REQUEST_QUERY = "query"
+LITERAL_SEARCH_SYMBOL = ":"
