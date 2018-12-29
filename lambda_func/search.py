@@ -8,6 +8,17 @@ from queries import *
 import snippets
 import connection
 import present
+import constants as c
+
+
+def search(query, user):
+    
+    if query[0] == c.LITERAL_SEARCH_SYMBOL:
+        result = literal_search(query[1:])
+    else:
+        result = complex_search(query)
+    
+    return result 
 
 def literal_search(query):
     
