@@ -1,7 +1,7 @@
 #Script with access data
 set_env_variables.bat
 set_env_variables.sh
-keys/*.json
+keys/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
