@@ -63,4 +63,4 @@ def call_specific_search(query, response, db_connection, user):
         user.current_result = df
         user.current_query = query
     except AttributeError:
-        user.service_messages.append({c.SERVICE_TEXTS: s.function_not_ready})
+        user.update_service_messages(s.function_not_ready)
