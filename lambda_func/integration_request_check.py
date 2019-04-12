@@ -1,18 +1,8 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
-import lambda_function
-
-
-# In[2]:
-
+from unprotected_integration_lambda import lambda_handler
 
 context = None
 event = {
-    "body": "{\"query\":\"Ахунбаева 92\", \"user\":\"ivydRfy6Z\"}",
+    "body": "{\"query\":\"тендер на канцтовары\", \"user\":\"90872\"}",
     "resource": "/{proxy+}",
     "requestContext": {
         "resourceId": "123456",
@@ -35,10 +25,12 @@ event = {
             "accountId": None
         },
         "stage": "prod"
-        },
+    },
     "queryStringParameters": {
-        "text": "It is working!"
-         },
+        "code": "4/JAHFiEAbCvVLl7pyD_7Z4FjR_R_pO_bJwNXDJjFV_m_3fAzwQoIvuvU3AhpjvIm1956amiEhPKgkIll0GIuWJbQ",
+        "scope": "https://www.googleapis.com/auth/drive.file",
+        "state": "{\"id\": \"ivydRfy6Z\", \"salt\": \"$6$kS9G/lvFkByQUbFL\"}"
+    },
     "headers": {
         "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
         "Accept-Language": "en-US,en;q=0.8",
@@ -69,9 +61,4 @@ event = {
     "path": "/path/to/resource"
 }
 
-
-# In[3]:
-
-
-print(lambda_function.lambda_handler(event, context))
-
+print(lambda_handler(event, context))

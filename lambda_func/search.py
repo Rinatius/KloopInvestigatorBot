@@ -5,52 +5,62 @@ from companysearcher import Companysearcher
 import dialogflow_tools as dft
 import queries
 from queries import *
-import snippets
+import service_functions
+from service_functions import *
+import snip
 import connection
 import present
 import constants as c
+import strings as s
 
 
 def search(query, user):
     
     if query[0] == c.LITERAL_SEARCH_SYMBOL:
-        result = literal_search(query[1:])
+        literal_search(query[1:], user)
+    elif query[0] == c.SERVICE_SYMBOL:
+        service_function(query[1:], user)
     else:
-        result = complex_search(query)
-    
-    return result 
+        complex_search(query, user)
 
-def literal_search(query):
+
+def service_function(query, user):
+    #try:
+    module = getattr(service_functions, query)
+    module.serve(user)
+    #except AttributeError:        
+    #    user.service_messages.append({c.SERVICE_TEXTS: s.function_not_ready})
+    
+    
+def literal_search(query, user):
     
     conn = pymysql.connect(**connection.DB)
     
     cs = Companysearcher(conn)
-    companies = cs.find(query)
+    df = cs.find(query)
+
+    user.current_result = df
+    user.current_query = query
     
     conn.close()
-    
-    return companies
 
-def complex_search(query):
+
+def complex_search(query, user):
     
     conn = pymysql.connect(**connection.DB)
     
     query_dialogflow = dft.prepare_for_dialogflow(query)
     response = dft.dialogflow_request(query_dialogflow)
-    result = call_specific_search(query, response, conn)
+    call_specific_search(query, response, conn, user)
     
     conn.close()
-    
-    return result
 
-def call_specific_search(query, response, db_connection):
+
+def call_specific_search(query, response, db_connection, user):
     try:
         module = getattr(queries, response["result"]["metadata"]["intentName"])
-        dataframe = module.search(db_connection, query, **response["result"]["parameters"])
-        result = {"text" : present.transform(dataframe)}
+        df = module.search(db_connection, query, **response["result"]["parameters"])
+        user.current_result = df
+        user.current_query = query
     except AttributeError:
-        
-        result = {"text" : "Просим прощения, эта функция пока не доступна."}
-
-    return result
-    
+        user.service_messages.append({c.SERVICE_TEXTS: s.function_not_ready})
