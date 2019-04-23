@@ -4,7 +4,7 @@
 # In[1]:
 
 
-import lambda_function
+import service_functions.start as start
 
 
 # In[2]:
@@ -73,5 +73,6 @@ event = {
 # In[3]:
 
 
-print(lambda_function.lambda_handler(event, context))
+
+print(start.start_handler(event, context))
 
