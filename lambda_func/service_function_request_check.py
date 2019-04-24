@@ -2,7 +2,7 @@ import lambda_function
 
 context = None
 event = {
-  "body": "{\"query\":\"/sheets_on\", \"user\":\"ivydRfy6Z\"}",
+  "body": "{\"query\":\"/start\", \"user\":\"xakim_test\"}",
   "resource": "/{proxy+}",
   "requestContext": {
     "resourceId": "123456",
