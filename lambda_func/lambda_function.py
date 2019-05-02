@@ -9,6 +9,8 @@ import sheets
 from outgoing import message
 from present import df_to_text
 
+from botcommands import BotCommand
+
 
 def lambda_handler(event, context):
 
@@ -26,6 +28,12 @@ def lambda_handler(event, context):
     user = User(user_id)
 
     search.search(query, user)
+
+    '''
+    # EXAMPLE OF USING BOT COMMAND (instead of "search.search(query, user)")
+    bot_command = BotCommand()
+    bot_command.search(query, user)
+    '''
 
     print("------RESULT------")
     print(user.current_result)
